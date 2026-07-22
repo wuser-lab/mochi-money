@@ -1,0 +1,28 @@
+name: ci
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  test-and-build:
+    runs-on: macos-15
+    steps:
+      - uses: actions/checkout@v7
+      - name: Test CSV codec
+        run: |
+          swiftc -swift-version 5 Sources/Models.swift Sources/CSVCodec.swift Tests/main.swift -o /tmp/mochi-money-tests
+          /tmp/mochi-money-tests
+      - name: Install icon dependency
+        run: python3 -m pip install Pillow
+      - name: Build universal DMG
+        run: ./build.sh "$RUNNER_TEMP/dist"
+      - name: Verify application signature
+        run: codesign --verify --deep --strict --verbose=2 "build/Mochi Money.app"
+      - uses: actions/upload-artifact@v7
+        with:
+          name: Mochi-Money-dmg
+          path: ${{ runner.temp }}/dist/Mochi-Money.dmg
