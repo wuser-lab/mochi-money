@@ -17,8 +17,12 @@ jobs:
           swiftc -swift-version 5 Sources/Models.swift Sources/CSVCodec.swift Tests/main.swift -o /tmp/mochi-money-tests
           /tmp/mochi-money-tests
       - name: Install icon dependency
-        run: python3 -m pip install Pillow
+        run: |
+          python3 -m venv "$RUNNER_TEMP/mochi-venv"
+          "$RUNNER_TEMP/mochi-venv/bin/pip" install Pillow
       - name: Build universal DMG
+        env:
+          MOCHI_PYTHON: ${{ runner.temp }}/mochi-venv/bin/python
         run: ./build.sh "$RUNNER_TEMP/dist"
       - name: Verify application signature
         run: codesign --verify --deep --strict --verbose=2 "build/Mochi Money.app"
