@@ -71,3 +71,19 @@ This compiles both `arm64` and `x86_64`, creates a universal application bundle,
 swiftc -swift-version 5 Sources/Models.swift Sources/CSVCodec.swift Tests/main.swift -o /tmp/mochi-money-tests
 /tmp/mochi-money-tests
 ```
+
+### Imported categories and own-account transfers
+
+KBC and Revolut statement imports use merchant names in titles and notes to suggest
+categories when the category is empty or Other. Existing explicit categories are
+preserved, and unrecognized merchants stay Other. Scholarship receipts have their
+own income category.
+
+For these statement imports, account-holder names and masked debit-card suffixes
+in KBC notes identify own-account payments and Revolut top-ups. Transfers are kept
+in the ledger, hidden from the default transaction list and recent activity, and
+excluded from income, spending, category charts, and budgets. Their original cash
+entries still contribute to the all-time balance, including transfers whose other
+side falls outside the statement period. Use Show transfers to review them, or
+edit a transaction's Transfer between my accounts checkbox to correct detection.
+Existing imports are classified when the app opens; no re-import is needed.

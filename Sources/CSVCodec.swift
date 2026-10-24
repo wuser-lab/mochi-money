@@ -14,7 +14,7 @@ enum CSVCodec {
     }
 
     static func decode(_ csv: String) throws -> [MoneyTransaction] {
-        let rows = parseRows(csv)
+        let rows = parseRows(csv.replacingOccurrences(of: "\r\n", with: "\n").replacingOccurrences(of: "\r", with: "\n").replacingOccurrences(of: "\u{FEFF}", with: ""))
         guard let header = rows.first, header.map({ $0.lowercased() }) == ["date", "type", "title", "amount", "category", "note"] else {
             throw CSVError.invalidHeader
         }

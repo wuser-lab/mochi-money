@@ -14,6 +14,7 @@ struct MoneyTransaction: Identifiable, Codable, Hashable {
     var category: String
     var date: Date
     var note: String
+    var isInternalTransfer: Bool? = nil
 }
 
 struct Budget: Identifiable, Codable, Hashable {
@@ -39,7 +40,7 @@ struct StoredData: Codable {
 
 enum MoneyCategories {
     static let expenses = ["Housing", "Food", "Transport", "Shopping", "Health", "Fun", "Travel", "Bills", "Education", "Other"]
-    static let income = ["Salary", "Freelance", "Gift", "Interest", "Refund", "Other"]
+    static let income = ["Salary", "Freelance", "Gift", "Interest", "Refund", "Scholarship", "Other"]
 
     static func symbol(for category: String) -> String {
         switch category {

@@ -27,12 +27,17 @@ final class MoneyStore: ObservableObject {
         load()
     }
 
-    var totalIncome: Double { transactions.filter { $0.kind == .income }.reduce(0) { $0 + $1.amount } }
-    var totalExpenses: Double { transactions.filter { $0.kind == .expense }.reduce(0) { $0 + $1.amount } }
-    var balance: Double { totalIncome - totalExpenses }
+    var visibleTransactions: [MoneyTransaction] { transactions.filter { $0.isInternalTransfer != true } }
+
+    var totalIncome: Double { visibleTransactions.filter { $0.kind == .income }.reduce(0) { $0 + $1.amount } }
+    var totalExpenses: Double { visibleTransactions.filter { $0.kind == .expense }.reduce(0) { $0 + $1.amount } }
+    var balance: Double {
+        let amount = transactions.reduce(0) { $0 + ($1.kind == .income ? $1.amount : -$1.amount) }
+        return abs(amount) < 0.005 ? 0 : amount
+    }
 
     var monthTransactions: [MoneyTransaction] {
-        transactions.filter { calendar.isDate($0.date, equalTo: Date(), toGranularity: .month) }
+        visibleTransactions.filter { calendar.isDate($0.date, equalTo: Date(), toGranularity: .month) }
     }
     var monthIncome: Double { monthTransactions.filter { $0.kind == .income }.reduce(0) { $0 + $1.amount } }
     var monthExpenses: Double { monthTransactions.filter { $0.kind == .expense }.reduce(0) { $0 + $1.amount } }
@@ -106,7 +111,7 @@ final class MoneyStore: ObservableObject {
         guard panel.runModal() == .OK, let url = panel.url else { return }
         do {
             let imported = try CSVCodec.decode(String(contentsOf: url, encoding: .utf8))
-            transactions.append(contentsOf: imported); save(); message = "Imported \(imported.count) transactions."
+            transactions = ImportRules.apply(to: transactions + imported); save(); message = "Imported \(imported.count) transactions."
         } catch { message = "Import failed: \(error.localizedDescription)" }
     }
 
@@ -131,7 +136,7 @@ final class MoneyStore: ObservableObject {
 
     private func load() {
         guard let data = try? Data(contentsOf: dataURL), let stored = try? JSONDecoder.configured.decode(StoredData.self, from: data) else { return }
-        transactions = stored.transactions; budgets = stored.budgets; goals = stored.goals; currencyCode = stored.currencyCode
+        transactions = ImportRules.apply(to: stored.transactions); budgets = stored.budgets; goals = stored.goals; currencyCode = stored.currencyCode
     }
 
     private func save() {

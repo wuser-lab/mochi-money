@@ -4,6 +4,7 @@ struct TransactionsView: View {
     @ObservedObject var store: MoneyStore
     @Binding var showingAdd: Bool
     @State private var query = ""
+    @State private var showTransfers = false
     @State private var filter: Filter = .all
     @State private var editing: MoneyTransaction?
     @State private var deleting: MoneyTransaction?
@@ -14,7 +15,7 @@ struct TransactionsView: View {
         store.transactions.filter { item in
             let typeMatches = filter == .all || (filter == .income && item.kind == .income) || (filter == .expenses && item.kind == .expense)
             let queryMatches = query.isEmpty || item.title.localizedCaseInsensitiveContains(query) || item.category.localizedCaseInsensitiveContains(query) || item.note.localizedCaseInsensitiveContains(query)
-            return typeMatches && queryMatches
+            return (showTransfers || item.isInternalTransfer != true) && typeMatches && queryMatches
         }.sorted { $0.date > $1.date }
     }
 
@@ -23,6 +24,7 @@ struct TransactionsView: View {
             HStack {
                 SectionTitle("Transactions", subtitle: "Every little in and out, neatly remembered.")
                 Spacer()
+                Toggle("Show transfers", isOn: $showTransfers).toggleStyle(.checkbox)
                 Picker("Filter", selection: $filter) { ForEach(Filter.allCases) { Text($0.rawValue).tag($0) } }
                     .pickerStyle(.segmented).frame(width: 260)
                 Button("Add", systemImage: "plus") { showingAdd = true }.monochromeButton()
@@ -70,6 +72,7 @@ struct TransactionEditor: View {
     @State private var category: String
     @State private var date: Date
     @State private var note: String
+    @State private var isInternalTransfer: Bool
 
     init(store: MoneyStore, editing: MoneyTransaction? = nil) {
         self.store = store; self.editing = editing
@@ -79,9 +82,10 @@ struct TransactionEditor: View {
         _category = State(initialValue: editing?.category ?? "Food")
         _date = State(initialValue: editing?.date ?? Date())
         _note = State(initialValue: editing?.note ?? "")
+        _isInternalTransfer = State(initialValue: editing?.isInternalTransfer ?? false)
     }
 
-    private var categories: [String] { kind == .expense ? MoneyCategories.expenses : MoneyCategories.income }
+    private var categories: [String] { (kind == .expense ? MoneyCategories.expenses : MoneyCategories.income) + (category == "Transfer" ? ["Transfer"] : []) }
 
     var body: some View {
         VStack(alignment: .leading, spacing: 20) {
@@ -99,6 +103,7 @@ struct TransactionEditor: View {
                 TextField("Title", text: $title, prompt: Text("What was it?"))
                 TextField("Amount", value: $amount, format: .number.precision(.fractionLength(2)))
                 Picker("Category", selection: $category) { ForEach(categories, id: \.self) { Label($0, systemImage: MoneyCategories.symbol(for: $0)).tag($0) } }
+                Toggle("Transfer between my accounts", isOn: $isInternalTransfer)
                 DatePicker("Date", selection: $date, displayedComponents: [.date])
                 TextField("Note", text: $note, prompt: Text("Optional tiny detail"), axis: .vertical).lineLimit(2...4)
             }.formStyle(.grouped)
@@ -114,7 +119,7 @@ struct TransactionEditor: View {
     }
 
     private func save() {
-        let item = MoneyTransaction(id: editing?.id ?? UUID(), title: title.trimmingCharacters(in: .whitespacesAndNewlines), amount: amount, kind: kind, category: category, date: date, note: note)
+        let item = MoneyTransaction(id: editing?.id ?? UUID(), title: title.trimmingCharacters(in: .whitespacesAndNewlines), amount: amount, kind: kind, category: isInternalTransfer ? "Transfer" : (category == "Transfer" ? "Other" : category), date: date, note: note, isInternalTransfer: isInternalTransfer)
         if editing == nil { store.add(item) } else { store.update(item) }
         dismiss()
     }

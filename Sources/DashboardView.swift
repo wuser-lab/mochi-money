@@ -100,15 +100,15 @@ struct DashboardView: View {
                 Spacer()
                 Button("Add new", systemImage: "plus") { showingAdd = true }.buttonStyle(.borderless)
             }
-            if store.transactions.isEmpty {
+            if store.visibleTransactions.isEmpty {
                 MochiCard { EmptyMochi(title: "Your wallet is quiet", message: "Add an income or expense and Mochi will keep it safe.") }
             } else {
                 MochiCard {
                     VStack(spacing: 0) {
-                        ForEach(Array(store.transactions.sorted(by: { $0.date > $1.date }).prefix(6)).indices, id: \.self) { index in
-                            let item = store.transactions.sorted(by: { $0.date > $1.date })[index]
+                        ForEach(Array(store.visibleTransactions.sorted(by: { $0.date > $1.date }).prefix(6)).indices, id: \.self) { index in
+                            let item = store.visibleTransactions.sorted(by: { $0.date > $1.date })[index]
                             TransactionRow(item: item, store: store)
-                            if index < min(store.transactions.count, 6) - 1 { Divider().opacity(0.22) }
+                            if index < min(store.visibleTransactions.count, 6) - 1 { Divider().opacity(0.22) }
                         }
                     }
                 }
