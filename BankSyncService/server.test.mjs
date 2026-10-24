@@ -55,3 +55,23 @@ test('authorization, state replay protection, pagination, cache, encryption and 
     assert.equal((await (await request('/status')).json()).accountCount,0);
   } finally {await new Promise(r=>server.close(r));await rm(dir,{recursive:true,force:true});}
 });
+
+test('local HTTPS verifies the server certificate without disabling TLS',async()=>{
+  const {execFileSync} = await import('node:child_process');
+  const https = await import('node:https');
+  const dir = await mkdtemp(tmpdir()+'/mochi-tls-test-');
+  const cert = dir+'/cert.pem', key = dir+'/key.pem';
+  execFileSync('openssl',['req','-x509','-newkey','rsa:2048','-nodes','-days','1','-keyout',key,'-out',cert,'-subj','/CN=localhost','-addext','subjectAltName=DNS:localhost,IP:127.0.0.1'],{stdio:'ignore'});
+  const token = 'test-only-local-https-token-'.repeat(2);
+  const server = await createService({token,origin:'https://localhost:8787',dataDir:dir,tlsCertFile:cert,tlsKeyFile:key},async()=>({}));
+  await new Promise(r=>server.listen(0,'127.0.0.1',r));
+  try {
+    const ca = await readFile(cert);
+    const result = await new Promise((resolve,reject)=>{
+      https.get({hostname:'127.0.0.1',port:server.address().port,path:'/status',servername:'localhost',ca,headers:{Host:'localhost:8787',Authorization:'Bearer '+token}},res=>{
+        let data='';res.on('data',p=>data+=p);res.on('end',()=>resolve({status:res.statusCode,data:JSON.parse(data)}));
+      }).on('error',reject);
+    });
+    assert.equal(result.status,200);assert.equal(result.data.accountCount,0);
+  } finally {await new Promise(r=>server.close(r));await rm(dir,{recursive:true,force:true});}
+});

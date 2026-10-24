@@ -12,7 +12,7 @@ Banking account or grant access to a bank automatically.
    with a sandbox application; live access requires production activation and
    the provider's own-account whitelisting or commercial approval. Check current
    eligibility and terms directly with Enable Banking.
-3. Register the exact redirect URL `http://127.0.0.1:8787/callback` for a local
+3. Register the exact redirect URL `https://localhost:8787/callback` for a local
    service. For a private server, use `https://YOUR-SERVICE/callback` instead.
    Confirm the redirect is accepted in the provider control panel.
 4. Approve account-information access in each bank's browser flow. The available
@@ -37,10 +37,19 @@ Do not paste real credentials into a chat or commit that environment file.
 ENABLE_BANKING_APP_ID=YOUR_APPLICATION_ID
 ENABLE_BANKING_KEY_FILE=/absolute/private/path/private.pem
 MOCHI_SYNC_TOKEN=YOUR_RANDOM_CONNECTION_KEY
-MOCHI_SYNC_ORIGIN=http://127.0.0.1:8787
+MOCHI_SYNC_ORIGIN=https://localhost:8787
 MOCHI_SYNC_DATA_DIR=/absolute/private/path/mochi-bank-state
 PORT=8787
+MOCHI_TLS_CERT_FILE=/absolute/private/path/localhost-cert.pem
+MOCHI_TLS_KEY_FILE=/absolute/private/path/localhost-key.pem
 ```
+
+Enable Banking production registration requires an HTTPS callback. For local
+use, provide a localhost certificate trusted by macOS with SAN entries for
+localhost and 127.0.0.1, plus its private key using the TLS variables above.
+Adding certificate trust requires the Mac owner's approval. Do not bypass
+browser certificate warnings or disable TLS verification. If using a reverse
+proxy with a publicly trusted HTTPS certificate, omit the two TLS variables.
 
 After exporting those variables, start the service:
 

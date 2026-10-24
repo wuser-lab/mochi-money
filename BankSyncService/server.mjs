@@ -1,4 +1,5 @@
 import http from 'node:http';
+import https from 'node:https';
 import {readFile, writeFile, mkdir, rename} from 'node:fs/promises';
 import {createPrivateKey, sign, randomBytes, createHash, createCipheriv, createDecipheriv, timingSafeEqual} from 'node:crypto';
 import {pathToFileURL} from 'node:url';
@@ -65,7 +66,7 @@ export async function createService(config, providerOverride) {
   async function body(req) {
     let text = ''; for await (const piece of req) {text += piece; if (text.length > 4096) throw Error('Request too large.');} return JSON.parse(text || '{}');
   }
-  const server = http.createServer(async (req,res) => {
+  const handler = async (req,res) => {
     try {
       // Reject DNS rebinding and browser-based cross-origin requests. No CORS is enabled.
       if (req.headers.host !== origin.host) return json(res,403,{error:'Invalid host.'});
@@ -141,11 +142,14 @@ export async function createService(config, providerOverride) {
       }
       return json(res,404,{error:'Not found.'});
     } catch (e) {json(res,502,{error:e.message || 'Connection service failed.'});}
-  });
-  return server;
+  };
+  if (config.tlsCertFile && config.tlsKeyFile) {
+    return https.createServer({cert:await readFile(config.tlsCertFile),key:await readFile(config.tlsKeyFile),minVersion:"TLSv1.2"},handler);
+  }
+  return http.createServer(handler);
 }
 if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {
-  const config = {token:process.env.MOCHI_SYNC_TOKEN,appID:process.env.ENABLE_BANKING_APP_ID,keyFile:process.env.ENABLE_BANKING_KEY_FILE,origin:process.env.MOCHI_SYNC_ORIGIN || 'http://127.0.0.1:8787',dataDir:process.env.MOCHI_SYNC_DATA_DIR};
+  const config = {token:process.env.MOCHI_SYNC_TOKEN,appID:process.env.ENABLE_BANKING_APP_ID,keyFile:process.env.ENABLE_BANKING_KEY_FILE,origin:process.env.MOCHI_SYNC_ORIGIN || 'http://127.0.0.1:8787',dataDir:process.env.MOCHI_SYNC_DATA_DIR,tlsCertFile:process.env.MOCHI_TLS_CERT_FILE,tlsKeyFile:process.env.MOCHI_TLS_KEY_FILE};
   if (!config.appID || !config.keyFile || !config.dataDir) throw Error('Set ENABLE_BANKING_APP_ID, ENABLE_BANKING_KEY_FILE and MOCHI_SYNC_DATA_DIR.');
   const server = await createService(config); server.listen(Number(process.env.PORT || 8787),'127.0.0.1',()=>console.log('Mochi bank connection service is ready.'));
 }

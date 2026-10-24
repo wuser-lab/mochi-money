@@ -3,7 +3,7 @@ import SwiftUI
 struct BankSyncSettings: View {
     @ObservedObject var sync: BankSync
     @State private var showSetup = false
-    @State private var address = "http://127.0.0.1:8787"
+    @State private var address = "https://localhost:8787"
     @State private var key = ""
     @State private var selectedBank = ""
     @State private var confirmDisconnect = false
