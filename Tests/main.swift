@@ -49,3 +49,25 @@ expect(ImportRules.apply(to: exportedTransfers)[1].isInternalTransfer == true, "
 var overridden = source[2]; overridden.isInternalTransfer = false
 expect(ImportRules.apply(to: [source[0], overridden])[1].isInternalTransfer == false, "manual transfer override persists")
 print("Import classification tests passed")
+let categories: [(String, String)] = [
+    ("KBC | AMAZONBERETAIL", "Shopping"),
+    ("KBC | NMBSLEUVENTVM", "Transport"),
+    ("KBC | BLUE-MOBILITYNV", "Transport"),
+    ("KBC | CHRISTELIJKEMUTUALITEIT", "Health"),
+    ("KBC | ALMA2BE3000LEUVEN", "Food"),
+    ("KBC | COMPASSGROUPDIEGEM", "Food")
+]
+for (note, expected) in categories {
+    expect(ImportRules.category(for: imported("PAYMENTVIABANCONTACT", .expense, note)) == expected, "merchant category: \(expected)")
+}
+var rent = imported("SENDINGMONEYINSTANTLYTO", .expense, "KBC | KATHOLIEKEUNIVERSITEITLEUVEN")
+rent.amount = 512
+expect(ImportRules.category(for: rent) == "Housing", "confirmed campus rent")
+rent.amount = 11
+expect(ImportRules.category(for: rent) == "Education", "small university payment is not rent")
+expect(ImportRules.category(for: imported("CASHWITHDRAWALVIABANCONTACT")) == "Cash withdrawal", "cash stays separate")
+expect(ImportRules.category(for: imported("To Robo portfolio")) == "Investments", "investment stays separate")
+expect(ImportRules.category(for: imported("Unknown merchant")) == "Other", "do not guess unknown purpose")
+print("Expanded categorization tests passed")
+expect(ImportRules.category(for: imported("On")) == "Shopping", "On sportswear exact merchant name")
+expect(ImportRules.category(for: imported("Unknown payment")) == "Other", "On must not match substrings")

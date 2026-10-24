@@ -55,12 +55,20 @@ enum ImportRules {
             if contains(["SALARY", "PAYROLL"]) { return "Salary" }
             return "Other"
         }
-        if contains(["COLRUYT", "ALDI", "LIDL", "DELHAIZE", "CARREFOUR", "CANTEEN", "LEUCA", "KATHMANDU", "COOP", "MIGROS", "RESTAUR", "BAKERY", "MCDONALD", "UBEREATS"]) { return "Food" }
-        if contains(["NMBSSNCB", "SNCB", "SBB", "VBZ", "DELIJN", "TRAIN", "FLIXBUS"]) { return "Transport" }
-        if contains(["ORANGE", "PLANFEE", "DIGITALOCEAN", "YANDEXPLUS", "LINKEDIN"]) { return "Bills" }
-        if contains(["PHARM", "APOTHEEK", "DOCTOR", "HOSPITAL"]) { return "Health" }
-        if contains(["ACTION2101", "IKEA", "ZARA", "PRIMARK"]) { return "Shopping" }
+        if contains(["CASHWITHDRAWAL"]) { return "Cash withdrawal" }
+        if contains(["ROBOPORTFOLIO", "INVESTMENTACCOUNT", "REVOLUTDIGITALASSETS", "BYBIT"]) { return "Investments" }
+        let university = contains(["KATHOLIEKEUNIVERSITEITLEUVEN", "KULEUVEN"])
+        // Confirmed university accommodation payments in the imported statements.
+        if university && (450...600).contains(item.amount) { return "Housing" }
+        if contains(["COLRUYT", "ALDI", "LIDL", "DELHAIZE", "CARREFOUR", "CANTEEN", "LEUCA", "KATHMANDU", "COOP", "MIGROS", "RESTAUR", "BAKERY", "MCDONALD", "UBEREATS", "DESPUYE", "ALMA2", "SPARVESALIUS", "COMPASSGROUP", "JUMBO", "BOULCASSORET"]) { return "Food" }
+        if contains(["NMBS", "BLUEMOBILITY", "SNCB", "SBB", "VBZ", "DELIJN", "TRAIN", "FLIXBUS"]) { return "Transport" }
+        if contains(["ORANGE", "PLANFEE", "DIGITALOCEAN", "YANDEXPLUS", "LINKEDIN", "ESIMUSAGE"]) { return "Bills" }
+        if contains(["PHARM", "APOTHEEK", "DOCTOR", "HOSPITAL", "CHRISTELIJKEMUTUALITEIT", "MUTCM"]) { return "Health" }
+        if item.title.trimmingCharacters(in: .whitespacesAndNewlines).lowercased() == "on" { return "Shopping" }
+        if contains(["ACTION2101", "IKEA", "ZARA", "PRIMARK", "AMAZON"]) { return "Shopping" }
         if contains(["SPORTOASE", "CINEMA", "TICKETLIVE", "SPOTIFY"]) { return "Fun" }
+        if university { return "Education" }
+        if contains(["BOOKINGCOM", "BKGHOTEL", "AIRBNB"]) { return "Travel" }
         return "Other"
     }
 }

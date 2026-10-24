@@ -39,11 +39,15 @@ struct StoredData: Codable {
 }
 
 enum MoneyCategories {
-    static let expenses = ["Housing", "Food", "Transport", "Shopping", "Health", "Fun", "Travel", "Bills", "Education", "Other"]
+    static let expenses = ["Housing", "Food", "Transport", "Shopping", "Health", "Fun", "Travel", "Bills", "Education", "Cash withdrawal", "Investments", "Other"]
     static let income = ["Salary", "Freelance", "Gift", "Interest", "Refund", "Scholarship", "Other"]
 
     static func symbol(for category: String) -> String {
         switch category {
+        case "Cash withdrawal": return "banknote"
+        case "Investments": return "chart.line.uptrend.xyaxis"
+        case "Scholarship": return "graduationcap.fill"
+        case "Transfer": return "arrow.left.arrow.right"
         case "Housing": return "house.fill"
         case "Food": return "fork.knife"
         case "Transport": return "tram.fill"

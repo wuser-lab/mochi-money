@@ -87,3 +87,7 @@ entries still contribute to the all-time balance, including transfers whose othe
 side falls outside the statement period. Use Show transfers to review them, or
 edit a transaction's Transfer between my accounts checkbox to correct detection.
 Existing imports are classified when the app opens; no re-import is needed.
+
+Additional statement rules distinguish cash withdrawals, investments, health
+insurance, university fees, and confirmed campus accommodation payments. The
+spending chart shows every category and its amount instead of only six bars.

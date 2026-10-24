@@ -49,14 +49,18 @@ struct DashboardView: View {
                 if store.monthCategorySpending.isEmpty {
                     EmptyMochi(title: "Nothing spent yet", message: "Your month is a beautifully blank page.")
                 } else {
-                    Chart(store.monthCategorySpending.prefix(6), id: \.category) { item in
+                    Chart(store.monthCategorySpending, id: \.category) { item in
                         BarMark(x: .value("Amount", item.amount), y: .value("Category", item.category))
                             .foregroundStyle(.white)
                             .cornerRadius(5)
+                            .annotation(position: .trailing, alignment: .leading) {
+                                Text(store.formatted(item.amount)).font(.caption).foregroundStyle(.secondary)
+                            }
                     }
+                    .chartXScale(domain: 0...max((store.monthCategorySpending.first?.amount ?? 1) * 1.35, 1))
                     .chartXAxis { AxisMarks(position: .bottom) { _ in AxisGridLine().foregroundStyle(.white.opacity(0.06)); AxisValueLabel() } }
                     .chartYAxis { AxisMarks { _ in AxisValueLabel() } }
-                    .frame(height: 225)
+                    .frame(height: CGFloat(max(225, store.monthCategorySpending.count * 38)))
                 }
             }
         }
