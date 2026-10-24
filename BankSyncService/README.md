@@ -16,7 +16,7 @@ Banking account or grant access to a bank automatically.
    service. For a private server, use `https://YOUR-SERVICE/callback` instead.
    Confirm the redirect is accepted in the provider control panel.
 4. Approve account-information access in each bank's browser flow. The available
-   bank list is fetched from the provider for Belgium; KBC/Revolut availability
+   bank list is fetched from the provider for Belgium and Revolut France; KBC/Revolut availability
    must be verified with your activated application, not assumed from a mock.
 
 The official [API reference](https://enablebanking.com/docs/api/reference/)

@@ -19,7 +19,7 @@ test('authorization, state replay protection, pagination, cache, encryption and 
   const token = 'test-only-connection-key-'.repeat(3); let nonce; let calls = []; let loop = false;
   const provider = async(path,method,body)=>{
     calls.push(path);
-    if (path.startsWith('/aspsps')) return {aspsps:[{name:'Test bank',country:'BE',maximum_consent_validity:86400}]};
+    if (path.startsWith('/aspsps')) return {aspsps:path.includes('country=FR') ? [{name:'Revolut',country:'FR',maximum_consent_validity:86400}] : [{name:'Test bank',country:'BE',maximum_consent_validity:86400}]};
     if (path === '/auth') {nonce=body.state;assert.equal(body.access.transactions,true);assert.equal(body.access.balances,false);return {url:'https://auth.enablebanking.com/test'};}
     if (path === '/sessions') return {session_id:'session-1',accounts:[account]};
     if (path === '/sessions/session-1') return method === 'DELETE' ? {} : {status:'AUTHORIZED'};
@@ -39,6 +39,8 @@ test('authorization, state replay protection, pagination, cache, encryption and 
   });
   try {
     assert.equal((await request('/status',null,false)).status,401);assert.equal(calls.length,0);
+    assert.ok((await (await request('/banks')).json()).banks.some(b=>b.name === 'Revolut' && b.country === 'FR'));
+    assert.equal((await request('/connect',{name:'Revolut',country:'FR'})).status,200);
     assert.equal((await request('/status',null,true,'attacker.test')).status,403);
     assert.equal((await request('/connect',{name:'Unknown',country:'BE'})).status,400);
     assert.equal((await request('/connect',{name:'Test bank',country:'BE'})).status,200);

@@ -89,11 +89,15 @@ export async function createService(config, providerOverride) {
       if (req.headers.origin) return json(res,403,{error:'Use the Mochi Money app.'});
       if (url.pathname === '/banks' && req.method === 'GET') {
         const result = await provider('/aspsps?country=BE&psu_type=personal&service=AIS');
-        return json(res,200,{banks:(result.aspsps || []).map(b=>({name:b.name,country:b.country}))});
+        const france = await provider('/aspsps?country=FR&psu_type=personal&service=AIS');
+        const banks = [...(result.aspsps || []), ...(france.aspsps || []).filter(b=>b.name === 'Revolut')];
+        return json(res,200,{banks:banks.map(b=>({name:b.name,country:b.country}))});
       }
       if (url.pathname === '/status' && req.method === 'GET') return json(res,200,{revision:state.revision || "",connectedBanks:state.sessions.map(s=>s.bank.name),accountCount:state.sessions.reduce((n,s)=>n+s.accounts.length,0)});
       if (url.pathname === '/connect' && req.method === 'POST') {
-        const input = await body(req); const available = await provider('/aspsps?country=BE&psu_type=personal&service=AIS');
+        const input = await body(req);
+        if (!['BE','FR'].includes(input.country) || (input.country === 'FR' && input.name !== 'Revolut')) return json(res,400,{error:'Unsupported bank country.'});
+        const available = await provider('/aspsps?country='+input.country+'&psu_type=personal&service=AIS');
         const bank = (available.aspsps || []).find(b=>b.name === input.name && b.country === input.country);
         if (!bank) return json(res,400,{error:'Choose a bank from the available list.'});
         const nonce = randomBytes(32).toString('hex');

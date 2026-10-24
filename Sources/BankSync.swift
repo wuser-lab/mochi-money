@@ -58,6 +58,7 @@ final class BankSync: ObservableObject {
         let latestImport = store.transactions.filter { $0.note.hasPrefix("KBC |") || $0.note.hasPrefix("Revolut statement") }.map(\.date).max()
         let firstDay = latestImport.flatMap { calendar.date(byAdding:.day,value:1,to:calendar.startOfDay(for:$0)) } ?? calendar.startOfDay(for:Date())
         startDate = UserDefaults.standard.object(forKey:"bankSyncStartDate") as? Date ?? min(firstDay,calendar.startOfDay(for:Date()))
+        lastAttempt = UserDefaults.standard.object(forKey:"bankSyncLastAttempt") as? Date ?? lastSync ?? .distantPast
         if let data = BankServiceKeychain.read(), let saved = try? JSONDecoder().decode(BankServiceSettings.self,from:data) {
             settings = saved; configured = true; message = "Bank connection service configured."
         }
@@ -122,7 +123,7 @@ final class BankSync: ObservableObject {
         } catch {message = error.localizedDescription}
     }
     func sync() async {
-        guard configured && !busy else {return}; busy = true; lastAttempt = Date(); defer {busy = false}
+        guard configured && !busy else {return}; busy = true; lastAttempt = Date(); UserDefaults.standard.set(lastAttempt,forKey:"bankSyncLastAttempt"); defer {busy = false}
         do {
             try await refreshStatus()
             guard !connectedBanks.isEmpty else {message = "Connect a bank to start importing payments."; return}

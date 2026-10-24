@@ -26,7 +26,7 @@ struct BankSyncSettings: View {
                     HStack {
                         Picker("Bank",selection:$selectedBank) {
                             Text("Choose a bank").tag("")
-                            ForEach(sync.banks) {bank in Text(bank.name).tag(bank.id)}
+                            ForEach(sync.banks) {bank in Text(bank.name + " (" + (bank.country == "FR" ? "France" : bank.country == "BE" ? "Belgium" : bank.country) + ")").tag(bank.id)}
                         }
                         Button("Connect bank") {
                             if let bank = sync.banks.first(where:{$0.id == selectedBank}) {Task {await sync.connect(bank)}}
