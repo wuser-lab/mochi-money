@@ -32,10 +32,10 @@ enum ImportRules {
                 let ownRevolut = isRevolut && (
                     isOwner(item.title.replacingOccurrences(of: "Payment from ", with: "").replacingOccurrences(of: "To ", with: "")) ||
                     item.kind == .income && (item.title == "Open banking top-up" || cards.contains { item.title == "Top-up by *" + $0 }))
-                item.isInternalTransfer = item.category == "Transfer" || ownKBC || ownRevolut
+                item.isInternalTransfer = item.transferOverride ?? (item.category == "Transfer" || ownKBC || ownRevolut)
             }
             if item.isInternalTransfer == true { item.category = "Transfer" }
-            else if (isKBC || isRevolut) && (item.category == "Other" || item.category.isEmpty) {
+            else if (isKBC || isRevolut || item.bankID != nil) && (item.category == "Other" || item.category.isEmpty) {
                 item.category = category(for: item)
             }
             return item

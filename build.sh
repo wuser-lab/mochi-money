@@ -13,10 +13,10 @@ rm -rf "$APP_DIR" "$DMG_STAGE" "$BUILD_DIR/AppIcon.iconset" "$BUILD_DIR/AppIcon.
 mkdir -p "$APP_DIR/Contents/MacOS" "$APP_DIR/Contents/Resources" "$DMG_STAGE" "$OUTPUT_DIR"
 
 swiftc -swift-version 5 -parse-as-library -O -target arm64-apple-macosx14.0 \
-  -framework SwiftUI -framework AppKit -framework Charts \
+  -framework SwiftUI -framework AppKit -framework Charts -framework Security \
   "$ROOT_DIR"/Sources/*.swift -o "$BUILD_DIR/MochiMoney-arm64"
 swiftc -swift-version 5 -parse-as-library -O -target x86_64-apple-macosx14.0 \
-  -framework SwiftUI -framework AppKit -framework Charts \
+  -framework SwiftUI -framework AppKit -framework Charts -framework Security \
   "$ROOT_DIR"/Sources/*.swift -o "$BUILD_DIR/MochiMoney-x86_64"
 lipo -create "$BUILD_DIR/MochiMoney-arm64" "$BUILD_DIR/MochiMoney-x86_64" -output "$APP_DIR/Contents/MacOS/MochiMoney"
 

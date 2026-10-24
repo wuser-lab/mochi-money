@@ -15,6 +15,10 @@ struct MoneyTransaction: Identifiable, Codable, Hashable {
     var date: Date
     var note: String
     var isInternalTransfer: Bool? = nil
+    var bankID: String? = nil
+    var accountID: String? = nil
+    var currency: String? = nil
+    var transferOverride: Bool? = nil
 }
 
 struct Budget: Identifiable, Codable, Hashable {

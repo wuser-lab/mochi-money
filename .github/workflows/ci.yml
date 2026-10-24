@@ -14,8 +14,13 @@ jobs:
       - uses: actions/checkout@v7
       - name: Test CSV codec
         run: |
-          swiftc -swift-version 5 Sources/Models.swift Sources/CSVCodec.swift Sources/ImportRules.swift Tests/main.swift -o /tmp/mochi-money-tests
+          swiftc -swift-version 5 Sources/Models.swift Sources/CSVCodec.swift Sources/ImportRules.swift Sources/BankMerge.swift Tests/main.swift -o /tmp/mochi-money-tests
           /tmp/mochi-money-tests
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Test bank connection service
+        run: node --test BankSyncService/server.test.mjs
       - name: Install icon dependency
         run: |
           python3 -m venv "$RUNNER_TEMP/mochi-venv"

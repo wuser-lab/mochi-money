@@ -119,7 +119,7 @@ struct TransactionEditor: View {
     }
 
     private func save() {
-        let item = MoneyTransaction(id: editing?.id ?? UUID(), title: title.trimmingCharacters(in: .whitespacesAndNewlines), amount: amount, kind: kind, category: isInternalTransfer ? "Transfer" : (category == "Transfer" ? "Other" : category), date: date, note: note, isInternalTransfer: isInternalTransfer)
+        let item = MoneyTransaction(id: editing?.id ?? UUID(), title: title.trimmingCharacters(in: .whitespacesAndNewlines), amount: amount, kind: kind, category: isInternalTransfer ? "Transfer" : (category == "Transfer" ? "Other" : category), date: date, note: note, isInternalTransfer: isInternalTransfer, bankID: editing?.bankID, accountID: editing?.accountID, currency: editing?.currency, transferOverride: isInternalTransfer)
         if editing == nil { store.add(item) } else { store.update(item) }
         dismiss()
     }

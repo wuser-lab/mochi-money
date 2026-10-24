@@ -8,7 +8,7 @@ struct SettingsView: View {
     var body: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: 22) {
-                SectionTitle("Settings", subtitle: "Your data stays on this Mac unless you export it.")
+                SectionTitle("Settings", subtitle: "Your ledger stays on this Mac. Bank sync is optional.")
                 MochiCard {
                     VStack(alignment: .leading, spacing: 18) {
                         Label("Money format", systemImage: "eurosign.circle.fill").font(.headline)
@@ -19,6 +19,7 @@ struct SettingsView: View {
                         }
                     }
                 }
+                BankSyncSettings(sync: store.bankSync)
                 MochiCard {
                     VStack(alignment: .leading, spacing: 18) {
                         Label("Your data", systemImage: "externaldrive.fill").font(.headline)
@@ -40,7 +41,7 @@ struct SettingsView: View {
                         MochiMascot().scaleEffect(0.68).frame(width: 70, height: 62)
                         VStack(alignment: .leading, spacing: 4) {
                             Text("Mochi Money 1.0").font(.headline)
-                            Text("Private by default · No account · No analytics · No cloud backend").foregroundStyle(.secondary)
+                            Text("Private by default · No analytics · Optional bank connection").foregroundStyle(.secondary)
                         }
                         Spacer()
                     }

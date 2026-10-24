@@ -71,3 +71,24 @@ expect(ImportRules.category(for: imported("Unknown merchant")) == "Other", "do n
 print("Expanded categorization tests passed")
 expect(ImportRules.category(for: imported("On")) == "Shopping", "On sportswear exact merchant name")
 expect(ImportRules.category(for: imported("Unknown payment")) == "Other", "On must not match substrings")
+let bankRecord = BankRecord(bankID:"bank-unique-reference",accountID:"account-hash",currency:"EUR",title:"ALDI",amount:12.34,kind:.expense,date:"2026-10-24T12:00:00Z",note:"Bank sync: Test bank",isInternalTransfer:false)
+let firstSync = try BankMerge.merge([bankRecord,bankRecord],into:[],currency:"EUR")
+expect(firstSync.added == 1 && firstSync.items.count == 1, "deduplicate within bank page")
+expect(firstSync.items[0].category == "Food", "categorize live bank merchant")
+let secondSync = try BankMerge.merge([bankRecord],into:firstSync.items,currency:"EUR")
+expect(secondSync.added == 0 && secondSync.items[0].id == firstSync.items[0].id, "idempotent repeated sync")
+var manual = firstSync.items[0]; manual.category = "Shopping"; manual.title = "My edited merchant"; manual.transferOverride = false
+var corrected = bankRecord; corrected.amount = 13; corrected.isInternalTransfer = true
+let correction = try BankMerge.merge([corrected],into:[manual],currency:"EUR")
+expect(correction.items[0].amount == 13 && correction.items[0].category == "Shopping" && correction.items[0].title == "My edited merchant", "preserve manual edits when bank updates amount")
+expect(correction.items[0].isInternalTransfer == false, "preserve manual self-transfer override")
+var foreign = bankRecord; foreign.currency = "CHF"
+do { _ = try BankMerge.merge([foreign],into:firstSync.items,currency:"EUR"); expect(false,"reject mixed currency") } catch {}
+var legacy = items[0]; legacy.bankID = "saved-bank-id"; legacy.accountID = "saved-account"; legacy.currency = "EUR"; legacy.transferOverride = false
+let bankExport = try CSVCodec.decode(CSVCodec.encode([legacy]))
+expect(bankExport[0].bankID == legacy.bankID && bankExport[0].transferOverride == false, "CSV preserves bank deduplication metadata")
+let oldCSV = "date,type,title,amount,category,note\n2026-10-24T12:00:00Z,Expense,Groceries,5.00,Food,\n"
+expect(try! CSVCodec.decode(oldCSV).count == 1, "six-column exports remain supported")
+let oldJSON = "{\"title\":\"Old purchase\",\"amount\":2,\"kind\":\"Expense\",\"category\":\"Food\",\"date\":0,\"note\":\"\",\"id\":\"00000000-0000-0000-0000-000000000001\"}"
+expect(try! JSONDecoder().decode(MoneyTransaction.self,from:Data(oldJSON.utf8)).bankID == nil, "old ledgers load without bank metadata")
+print("Bank merge and compatibility tests passed")

@@ -6,7 +6,7 @@
 
 <p align="center">
   A private, native macOS money tracker with an adorable monochrome interface.<br>
-  No account. No analytics. No cloud backend.
+  No Mochi account. No analytics. Optional bank sync.
 </p>
 
 <p align="center">
@@ -42,7 +42,7 @@ Change currency, import or export CSV data, load a demo, or clear local records.
 
 ## Privacy
 
-There is no account, analytics, advertising, or cloud backend. Data stays in `~/Library/Application Support/MochiMoney/money.json` unless you export it.
+There is no Mochi account, analytics, or advertising. Your ledger stays in `~/Library/Application Support/MochiMoney/money.json`. Optional bank sync shares authorized bank data through Enable Banking and your private connection service.
 
 ## Install
 
@@ -91,3 +91,14 @@ Existing imports are classified when the app opens; no re-import is needed.
 Additional statement rules distinguish cash withdrawals, investments, health
 insurance, university fees, and confirmed campus accommodation payments. The
 spending chart shows every category and its amount instead of only six bars.
+
+
+### Optional automatic bank imports
+
+Settings now includes Bank connections for a private Enable Banking service.
+See [bank sync setup](BankSyncService/README.md) for provider registration,
+local/HTTPS service configuration, consent, and limitations. This feature is
+optional: file imports and the local ledger still work without a service.
+Automatic checks run about every six hours while the app is open. Live bank
+access requires your provider account to be activated and your bank consent;
+it is not enabled by installing Mochi Money alone.

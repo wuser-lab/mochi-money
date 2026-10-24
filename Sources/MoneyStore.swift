@@ -11,6 +11,8 @@ final class MoneyStore: ObservableObject {
     @Published var currencyCode = "EUR" { didSet { save() } }
     @Published var message = "Your money is tucked in safely."
 
+    lazy var bankSync = BankSync(store: self)
+
     private let dataURL: URL
     private let calendar = Calendar.current
 
@@ -49,6 +51,15 @@ final class MoneyStore: ObservableObject {
 
     func spent(in category: String) -> Double {
         monthTransactions.filter { $0.kind == .expense && $0.category == category }.reduce(0) { $0 + $1.amount }
+    }
+
+    func mergeBankRecords(_ records: [BankRecord]) throws -> Int {
+        let result = try BankMerge.merge(records, into: transactions, currency: currencyCode)
+        let stored = StoredData(transactions: result.items, budgets: budgets, goals: goals, currencyCode: currencyCode)
+        let data = try JSONEncoder.configured.encode(stored)
+        try data.write(to: dataURL, options: .atomic)
+        transactions = result.items
+        return result.added
     }
 
     func add(_ item: MoneyTransaction) {
@@ -111,7 +122,9 @@ final class MoneyStore: ObservableObject {
         guard panel.runModal() == .OK, let url = panel.url else { return }
         do {
             let imported = try CSVCodec.decode(String(contentsOf: url, encoding: .utf8))
-            transactions = ImportRules.apply(to: transactions + imported); save(); message = "Imported \(imported.count) transactions."
+            var bankIDs = Set(transactions.compactMap(\.bankID))
+            let unique = imported.filter { item in item.bankID.map { bankIDs.insert($0).inserted } ?? true }
+            transactions = ImportRules.apply(to: transactions + unique); save(); message = "Imported \(unique.count) transactions."
         } catch { message = "Import failed: \(error.localizedDescription)" }
     }
 

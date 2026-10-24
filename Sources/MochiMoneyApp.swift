@@ -7,6 +7,7 @@ struct MochiMoneyApp: App {
     var body: some Scene {
         WindowGroup {
             RootView(store: store)
+                .task { await store.bankSync.run() }
         }
         .commands {
             CommandGroup(replacing: .newItem) {
