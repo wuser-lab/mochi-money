@@ -17,8 +17,8 @@ App: W Money, version 1.1.0, build 2. The record remains in Prepare for Submissi
 
 Remaining App Store Connect work:
 
-1. Upload the prepared iPhone and iPad screenshots in App Store Connect.
-2. Confirm free price and availability.
+1. Attach the prepared iPhone and iPad screenshots in App Store Connect.
+2. The App Store price is set to free in all 175 regions, with public distribution selected.
 3. Add the app for review, then track Apple’s review decision and release status.
 
 The user authorized submitting the local-only release. App Store submission is separate from Apple approval and public availability.

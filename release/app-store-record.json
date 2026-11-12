@@ -6,6 +6,8 @@
   "primary_locale": "en-GB",
   "category": "Finance",
   "status": "Prepare for Submission",
+  "price": "Free in all 175 countries or regions",
+  "distribution": "Public App Store",
   "privacy_policy_url": "https://wuser-lab.github.io/mochi-money/privacy.html",
   "support_url": "https://wuser-lab.github.io/mochi-money/support.html",
   "support_email": "wmoneyw@proton.me",
@@ -13,7 +15,7 @@
   "submitted_for_review": false,
   "publicly_available": false,
   "uploaded_build": "1.1.0 (2)",
-  "build_processing_status": "Upload succeeded; processing status must be confirmed in App Store Connect",
+  "build_processing_status": "Uploaded and selected in App Store Connect",
   "release_scope": "Local-only release authorized; online banking and public rankings disabled",
   "local_prepared_build": "1.1.0 (2), uploaded"
 }
