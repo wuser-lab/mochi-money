@@ -10,3 +10,12 @@
 *.enc
 /DerivedData/
 xcuserdata/
+
+# Private release evidence and account-specific signing options
+/release/app-store-draft.png
+/release/apple-signing-profile.png
+/release/testflight-upload.png
+/release/enable-banking-signin.png
+/release/screenshots/**/*.png
+/release/ExportOptions.plist
+/release/UploadOptions.plist
