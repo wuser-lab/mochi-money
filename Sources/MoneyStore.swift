@@ -4,7 +4,7 @@ import Foundation
 import UniformTypeIdentifiers
 
 @MainActor
-final class MoneyStore: ObservableObject {
+final class MoneyStore: ObservableObject, BankLedger {
     @Published private(set) var transactions: [MoneyTransaction] = []
     @Published private(set) var budgets: [Budget] = []
     @Published private(set) var goals: [SavingsGoal] = []

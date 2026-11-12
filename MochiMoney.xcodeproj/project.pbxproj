@@ -1,0 +1,382 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		04BB89CAFFEEAFECA9FF62D6 /* CommunityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC936714916F73DD44E3A501 /* CommunityView.swift */; };
+		15F4DAA6F1264517670EB92E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1A1C813C382ECAFCD9CAE658 /* Assets.xcassets */; };
+		1C391B8336E4EC81B12777DD /* ImportRules.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2FE797F25E8FAFBC199BFAD /* ImportRules.swift */; };
+		23E9D0C155E5BF04A8149377 /* FlowCoachView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 014A941536C329D69ACC69C3 /* FlowCoachView.swift */; };
+		2C5BA528D32A32E374C895C8 /* BankMerge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F04215780D2FB6A9A0A2D68 /* BankMerge.swift */; };
+		3E989A0387E6431BD7AB8A6A /* BankSync.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75F92A005FC0ED5241217380 /* BankSync.swift */; };
+		4C53EBCEEF69BD1A66193BA8 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 76CD799146EF0F14FD1398FF /* PrivacyInfo.xcprivacy */; };
+		764D9E4FDC870D41DAE974E7 /* FlowPlanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3436FFECE32A2FDD0F044440 /* FlowPlanner.swift */; };
+		85A216B6C0350F0B33D5D765 /* PhoneBankConnections.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4D1DD3D35E931494B0142C3 /* PhoneBankConnections.swift */; };
+		BD61A40F75824E12057DF8D8 /* CSVCodec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 516523BACE93ACD824B79F04 /* CSVCodec.swift */; };
+		CF15BC41FFDBE70BBBC3C33A /* PhoneLedger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D830CE401732C09C4EDEE53 /* PhoneLedger.swift */; };
+		E5BA110A098EFB965699CAF7 /* WDesign.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD8058455E218CBD95B5574F /* WDesign.swift */; };
+		F9737F7EF6E2A0F685F5960F /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A9269C825A2894A84AB03F3 /* Models.swift */; };
+		FB12F3C241CD768A3002D2B9 /* MochiPhoneApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CEEBCAD9FE5EAEE1ED87131 /* MochiPhoneApp.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		014A941536C329D69ACC69C3 /* FlowCoachView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowCoachView.swift; sourceTree = "<group>"; };
+		0A9269C825A2894A84AB03F3 /* Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
+		1A1C813C382ECAFCD9CAE658 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		211C5DF5784F7B87B85D823D /* MochiMoney.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MochiMoney.entitlements; sourceTree = "<group>"; };
+		3436FFECE32A2FDD0F044440 /* FlowPlanner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowPlanner.swift; sourceTree = "<group>"; };
+		3F04215780D2FB6A9A0A2D68 /* BankMerge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BankMerge.swift; sourceTree = "<group>"; };
+		4D830CE401732C09C4EDEE53 /* PhoneLedger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneLedger.swift; sourceTree = "<group>"; };
+		516523BACE93ACD824B79F04 /* CSVCodec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CSVCodec.swift; sourceTree = "<group>"; };
+		6CEEBCAD9FE5EAEE1ED87131 /* MochiPhoneApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MochiPhoneApp.swift; sourceTree = "<group>"; };
+		75F92A005FC0ED5241217380 /* BankSync.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BankSync.swift; sourceTree = "<group>"; };
+		76CD799146EF0F14FD1398FF /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
+		B4D1DD3D35E931494B0142C3 /* PhoneBankConnections.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneBankConnections.swift; sourceTree = "<group>"; };
+		C2FE797F25E8FAFBC199BFAD /* ImportRules.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportRules.swift; sourceTree = "<group>"; };
+		C822984265476837E8FC4BBD /* MochiMoney.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = MochiMoney.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		DC936714916F73DD44E3A501 /* CommunityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityView.swift; sourceTree = "<group>"; };
+		FD8058455E218CBD95B5574F /* WDesign.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WDesign.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXGroup section */
+		13BBDFCBC9A7E1ED324465C6 /* iOS */ = {
+			isa = PBXGroup;
+			children = (
+				1A1C813C382ECAFCD9CAE658 /* Assets.xcassets */,
+				DC936714916F73DD44E3A501 /* CommunityView.swift */,
+				211C5DF5784F7B87B85D823D /* MochiMoney.entitlements */,
+				6CEEBCAD9FE5EAEE1ED87131 /* MochiPhoneApp.swift */,
+				B4D1DD3D35E931494B0142C3 /* PhoneBankConnections.swift */,
+				4D830CE401732C09C4EDEE53 /* PhoneLedger.swift */,
+				76CD799146EF0F14FD1398FF /* PrivacyInfo.xcprivacy */,
+				FD8058455E218CBD95B5574F /* WDesign.swift */,
+			);
+			path = iOS;
+			sourceTree = "<group>";
+		};
+		5D1F2E02B414907E4CF5C61C /* Sources */ = {
+			isa = PBXGroup;
+			children = (
+				3F04215780D2FB6A9A0A2D68 /* BankMerge.swift */,
+				75F92A005FC0ED5241217380 /* BankSync.swift */,
+				516523BACE93ACD824B79F04 /* CSVCodec.swift */,
+				014A941536C329D69ACC69C3 /* FlowCoachView.swift */,
+				3436FFECE32A2FDD0F044440 /* FlowPlanner.swift */,
+				C2FE797F25E8FAFBC199BFAD /* ImportRules.swift */,
+				0A9269C825A2894A84AB03F3 /* Models.swift */,
+			);
+			path = Sources;
+			sourceTree = "<group>";
+		};
+		886CF7393B00185989A6B8BD = {
+			isa = PBXGroup;
+			children = (
+				13BBDFCBC9A7E1ED324465C6 /* iOS */,
+				5D1F2E02B414907E4CF5C61C /* Sources */,
+				E353BAA6300CE64054643681 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		E353BAA6300CE64054643681 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				C822984265476837E8FC4BBD /* MochiMoney.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		8BA1D9A09AE2E5A8D865981E /* MochiMoney */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 534B7E200CD8759490AF3741 /* Build configuration list for PBXNativeTarget "MochiMoney" */;
+			buildPhases = (
+				C9A2398527E2588BCE926239 /* Sources */,
+				85A51A9499841DC1995D95AE /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = MochiMoney;
+			packageProductDependencies = (
+			);
+			productName = MochiMoney;
+			productReference = C822984265476837E8FC4BBD /* MochiMoney.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		7A4AFBFA919F98DE269B1A23 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = YES;
+				LastUpgradeCheck = 1430;
+				TargetAttributes = {
+					8BA1D9A09AE2E5A8D865981E = {
+						ProvisioningStyle = Automatic;
+					};
+				};
+			};
+			buildConfigurationList = FA56F7BDF5B5FEB236E81214 /* Build configuration list for PBXProject "MochiMoney" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				Base,
+				en,
+			);
+			mainGroup = 886CF7393B00185989A6B8BD;
+			minimizedProjectReferenceProxies = 1;
+			preferredProjectObjectVersion = 77;
+			productRefGroup = E353BAA6300CE64054643681 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				8BA1D9A09AE2E5A8D865981E /* MochiMoney */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		85A51A9499841DC1995D95AE /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				15F4DAA6F1264517670EB92E /* Assets.xcassets in Resources */,
+				4C53EBCEEF69BD1A66193BA8 /* PrivacyInfo.xcprivacy in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		C9A2398527E2588BCE926239 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2C5BA528D32A32E374C895C8 /* BankMerge.swift in Sources */,
+				3E989A0387E6431BD7AB8A6A /* BankSync.swift in Sources */,
+				BD61A40F75824E12057DF8D8 /* CSVCodec.swift in Sources */,
+				04BB89CAFFEEAFECA9FF62D6 /* CommunityView.swift in Sources */,
+				23E9D0C155E5BF04A8149377 /* FlowCoachView.swift in Sources */,
+				764D9E4FDC870D41DAE974E7 /* FlowPlanner.swift in Sources */,
+				1C391B8336E4EC81B12777DD /* ImportRules.swift in Sources */,
+				FB12F3C241CD768A3002D2B9 /* MochiPhoneApp.swift in Sources */,
+				F9737F7EF6E2A0F685F5960F /* Models.swift in Sources */,
+				85A216B6C0350F0B33D5D765 /* PhoneBankConnections.swift in Sources */,
+				CF15BC41FFDBE70BBBC3C33A /* PhoneLedger.swift in Sources */,
+				E5BA110A098EFB965699CAF7 /* WDesign.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		4512B52750668EC28D173CC7 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"DEBUG=1",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		46BB369F65B80E61BEFB9BFF /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = iOS/MochiMoney.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 2;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = "W Money";
+				INFOPLIST_KEY_ITSAppUsesNonExemptEncryption = NO;
+				INFOPLIST_KEY_MochiAPIBaseURL = "$(MOCHI_API_BASE_URL)";
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.1.0;
+				MOCHI_API_BASE_URL = "";
+				PRODUCT_BUNDLE_IDENTIFIER = dev.wwwwwwww.mochimoney;
+				PRODUCT_NAME = "W Money";
+				SDKROOT = iphoneos;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		6F4F19D57E5524EF567C9FF2 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = iOS/MochiMoney.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 2;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = "W Money";
+				INFOPLIST_KEY_ITSAppUsesNonExemptEncryption = NO;
+				INFOPLIST_KEY_MochiAPIBaseURL = "$(MOCHI_API_BASE_URL)";
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.1.0;
+				MOCHI_API_BASE_URL = "";
+				PRODUCT_BUNDLE_IDENTIFIER = dev.wwwwwwww.mochimoney;
+				PRODUCT_NAME = "W Money";
+				SDKROOT = iphoneos;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		D260401803CCA70BE803A7C3 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		534B7E200CD8759490AF3741 /* Build configuration list for PBXNativeTarget "MochiMoney" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				6F4F19D57E5524EF567C9FF2 /* Debug */,
+				46BB369F65B80E61BEFB9BFF /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		FA56F7BDF5B5FEB236E81214 /* Build configuration list for PBXProject "MochiMoney" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4512B52750668EC28D173CC7 /* Debug */,
+				D260401803CCA70BE803A7C3 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 7A4AFBFA919F98DE269B1A23 /* Project object */;
+}

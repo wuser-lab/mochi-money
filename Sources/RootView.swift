@@ -6,6 +6,7 @@ enum AppSection: String, CaseIterable, Identifiable {
     case budgets = "Budgets"
     case goals = "Goals"
     case settings = "Settings"
+    case flow = "Money flow"
     var id: String { rawValue }
     var symbol: String {
         switch self {
@@ -13,6 +14,7 @@ enum AppSection: String, CaseIterable, Identifiable {
         case .transactions: return "list.bullet.rectangle.fill"
         case .budgets: return "chart.bar.fill"
         case .goals: return "flag.fill"
+        case .flow: return "sparkles"
         case .settings: return "gearshape.fill"
         }
     }
@@ -49,6 +51,7 @@ struct RootView: View {
                 case .transactions: TransactionsView(store: store, showingAdd: $showingAdd)
                 case .budgets: BudgetsView(store: store)
                 case .goals: GoalsView(store: store)
+                case .flow: FlowCoachView(transactions: store.transactions, goals: store.goals, currency: store.currencyCode)
                 case .settings: SettingsView(store: store)
                 }
             }

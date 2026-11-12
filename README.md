@@ -1,12 +1,14 @@
-# Mochi Money
+> **W Money iOS — current scope:** local budgeting, goals, CSV import/export and on-device planning. Online banking and worldwide rankings are paused and hidden in the default build. The latest local candidate is version 1.1.0, build 2; public release is on hold. See [release readiness](release/READINESS.md).
+
+# W Money
 
 <p align="center">
-  <img src="assets/app-icon.png" width="150" alt="Mochi Money app icon">
+  <img src="iOS/Assets.xcassets/AppIcon.appiconset/AppIcon.png" width="150" alt="W Money app icon">
 </p>
 
 <p align="center">
-  A private, native macOS money tracker with an adorable monochrome interface.<br>
-  No Mochi account. No analytics. Optional bank sync.
+  A calm, native money tracker for iPhone, with savings goals and a practical monthly plan.<br>
+  No ads. No analytics. Local tracking works without an account.
 </p>
 
 <p align="center">
@@ -14,6 +16,10 @@
 </p>
 
 ![Mochi Money dashboard](assets/dashboard.png)
+
+## iPhone redesign
+
+W Money has a focused overview, searchable and editable activity, savings goals with progress updates, adaptive light/dark appearance, a separate sample ledger and a new W icon. The iPhone release is being prepared for App Store review. The original macOS source and download remain below.
 
 ## Included
 
@@ -102,3 +108,32 @@ optional: file imports and the local ledger still work without a service.
 Automatic checks run about every six hours while the app is open. Live bank
 access requires your provider account to be activated and your bank consent;
 it is not enabled by installing Mochi Money alone.
+
+## Money-flow coach and iPhone app (development)
+
+The **Money flow** tab analyzes the last three complete calendar months, excludes own-account transfers and foreign-currency entries, and allocates historical surplus across goals in deadline order. Adjust the monthly cushion before using the suggestions. Unknown currencies are assumed to match the ledger. This is a historical budgeting estimate, not a verified balance or automated transfer instruction.
+
+The optional **Explain my plan** button uses Apple's on-device Foundation Models on supported Apple Intelligence devices with OS 26+. The planner works without AI. No remote AI service is configured. Generated text is experimental and may be incorrect.
+
+The native iPhone MVP source is in `iOS/`, with an XcodeGen specification in `project.yml`. It shares the desktop transaction format and planner, supports local entry, CSV import/export, goals and local deletion. The iPhone now offers in-app Apple registration and a Connect your bank flow, with per-account bank access and local ledgers. It requires deployment and provider activation of the new account backend; users do not configure service URLs or keys. Ledger edits and goals do not automatically sync between devices. See [in-app accounts and production activation](docs/APP-ACCOUNTS.md).
+
+To build with full Xcode and an iOS SDK installed:
+
+```sh
+brew install xcodegen
+xcodegen generate
+open MochiMoney.xcodeproj
+```
+
+Select your development team and a unique bundle identifier, then run on a simulator and a physical iPhone. AI requires a supported physical device. A signed archive, App Store Connect configuration, production support/privacy URLs, icon/screenshots and TestFlight validation are required before submission. See `docs/PRODUCT-PLAN.md` for roadmap and release gates. This development version has not been submitted to Apple.
+
+Planner verification:
+
+```sh
+swiftc -swift-version 5 Sources/Models.swift Sources/FlowPlanner.swift Tests/Planner/main.swift -o /tmp/mochi-planner-tests
+/tmp/mochi-planner-tests
+```
+
+### Optional worldwide progress
+
+The iPhone Worldwide tab compares monthly improvements in savings rate after starting a Mochi plan. Tracking is private by default. A separate opt-in can share a generated nickname, optional country and percentage-point improvement; transaction details and exact amounts stay private. Users can withdraw sharing or delete tracking. The chart needs the hosted account service and completed bank history; it does not claim that AI caused the observed change. See [comparison method and privacy](docs/WORLDWIDE-PROGRESS.md).

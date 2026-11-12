@@ -8,3 +8,5 @@
 *.pem
 *.key
 *.enc
+/DerivedData/
+xcuserdata/

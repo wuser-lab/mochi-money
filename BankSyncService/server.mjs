@@ -71,7 +71,7 @@ export async function createService(config, providerOverride) {
       // Reject DNS rebinding and browser-based cross-origin requests. No CORS is enabled.
       if (req.headers.host !== origin.host) return json(res,403,{error:'Invalid host.'});
       const url = new URL(req.url,origin);
-      if (url.pathname === '/callback' && req.method === 'GET') {
+      if (url.pathname === (config.callbackPath || '/callback') && req.method === 'GET') {
         const callbackState = url.searchParams.get('state');
         const pending = Object.hasOwn(state.pending,callbackState) ? state.pending[callbackState] : null;
         if (!pending || pending.expires < Date.now()) return json(res,400,{error:'Connection request expired. Start again in Mochi Money.'});
@@ -93,7 +93,7 @@ export async function createService(config, providerOverride) {
         const banks = [...(result.aspsps || []), ...(france.aspsps || []).filter(b=>b.name === 'Revolut')];
         return json(res,200,{banks:banks.map(b=>({name:b.name,country:b.country}))});
       }
-      if (url.pathname === '/status' && req.method === 'GET') return json(res,200,{revision:state.revision || "",connectedBanks:state.sessions.map(s=>s.bank.name),accountCount:state.sessions.reduce((n,s)=>n+s.accounts.length,0)});
+      if (url.pathname === '/status' && req.method === 'GET') return json(res,200,{revision:state.revision || "",connectedBanks:state.sessions.map(s=>s.bank.name),accountIDs:state.sessions.flatMap(s=>s.accounts.map(a=>digest(a.identification_hash))).sort(),accountCount:state.sessions.reduce((n,s)=>n+s.accounts.length,0)});
       if (url.pathname === '/connect' && req.method === 'POST') {
         const input = await body(req);
         if (!['BE','FR'].includes(input.country) || (input.country === 'FR' && input.name !== 'Revolut')) return json(res,400,{error:'Unsupported bank country.'});
@@ -101,10 +101,11 @@ export async function createService(config, providerOverride) {
         const bank = (available.aspsps || []).find(b=>b.name === input.name && b.country === input.country);
         if (!bank) return json(res,400,{error:'Choose a bank from the available list.'});
         const nonce = randomBytes(32).toString('hex');
-        const result = await provider('/auth','POST',{access:{transactions:true,balances:false,valid_until:new Date(Date.now()+1000*Math.min(90*86400,Number(bank.maximum_consent_validity) || 86400)).toISOString()},aspsp:{name:bank.name,country:bank.country},state:nonce,redirect_url:origin.origin+'/callback',psu_type:'personal'});
+        const result = await provider('/auth','POST',{access:{transactions:true,balances:false,valid_until:new Date(Date.now()+1000*Math.min(90*86400,Number(bank.maximum_consent_validity) || 86400)).toISOString()},aspsp:{name:bank.name,country:bank.country},state:nonce,redirect_url:config.callbackRedirectURL || origin.origin+(config.callbackPath || '/callback'),psu_type:'personal'});
         const authURL = new URL(result.url); if (authURL.protocol !== 'https:') throw Error('Provider returned an unsafe authorization URL.');
         state.pending = Object.fromEntries(Object.entries(state.pending).filter(([,v])=>v.expires>Date.now()));
         state.pending[nonce] = {bank:{name:bank.name,country:bank.country},expires:Date.now()+900000}; await save();
+        if (config.onAuthorizationState) await config.onAuthorizationState(nonce);
         return json(res,200,{url:result.url});
       }
       if (url.pathname === '/sync' && req.method === 'POST') {
